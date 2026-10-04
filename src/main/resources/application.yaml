@@ -1,13 +1,17 @@
 server:
   port: 8080
-
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/user_manage_system?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
     username: root
     password: 123456
-
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+      password:
+      database: 0
 mybatis-plus:
   type-aliases-package: cn.cbr.usermanagesystem.entity
   mapper-locations: classpath:mapper/*.xml
@@ -17,18 +21,11 @@ mybatis-plus:
   global-config:
     db-config:
       id-type: auto
-
-# ========== Sa-Token 基础配置 ==========
 sa-token:
-  # token 的名称（请求头 / Cookie 中的 key）
   token-name: satoken
-  # token 有效期，单位秒，这里设 30 分钟
   timeout: 1800
-  # 临时有效期，-1 表示不启用；只要持续操作就不会过期
   active-timeout: -1
-  # 是否允许同一账号多地同时登录，false = 互斥登录，新登录会顶掉旧 token
   is-concurrent: false
-  # token 生成样式，uuid 是最常用的随机字符串格式
   token-style: uuid
-  # 启动时是否打印 Sa-Token 日志
   is-log: false
+  redis-template: true
